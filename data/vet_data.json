@@ -1,0 +1,486 @@
+[
+  {
+    "disease_id": "D_CPV",
+    "disease_name": "Canine Parvovirus",
+    "species": "Dog",
+    "breeds_affected": ["All", "Rottweiler", "German Shepherd", "Labrador"],
+    "risk_factors": ["Unvaccinated", "Puppy (< 6 months)"],
+    "common_age_onset": "6 weeks - 6 months",
+    "symptoms": [
+      {
+        "symptom_key": "lethargy",
+        "symptom_name": "Lethargy/Depression",
+        "severity_mild": "Slightly less energy; skipping a walk.",
+        "severity_severe": "Profound weakness; inability to stand/walk; unresponsive (Stupor).",
+        "trigger_follow_up": "Is your dog unable to stand up on its own or completely unresponsive?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "diarrhea",
+        "symptom_name": "Diarrhea",
+        "severity_mild": "Soft stool or mild, non-bloody diarrhea.",
+        "severity_severe": "Severe, watery, projectile, foul-smelling, and often **bloody diarrhea**.",
+        "trigger_follow_up": "Is the diarrhea very watery and foul-smelling? Is there any visible blood?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "vomiting",
+        "symptom_name": "Vomiting",
+        "severity_mild": "One or two episodes of non-bloody vomit.",
+        "severity_severe": "Relentless, frequent vomiting (preventing water intake) that leads to severe **dehydration** and **shock**.",
+        "trigger_follow_up": "Is the vomiting frequent (more than 4 times in 6 hours), and is your dog showing signs of dehydration (dry gums, sunken eyes)?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "EMERGENCY: **Requires immediate hospitalization.** CPV is highly contagious and life-threatening. Isolation and intensive supportive care are mandatory."
+  },
+  {
+    "disease_id": "D_CHD_GSD",
+    "disease_name": "Canine Hip Dysplasia",
+    "species": "Dog",
+    "breeds_affected": ["German Shepherd", "Labrador", "Rottweiler"],
+    "risk_factors": ["Rapid growth rate", "Overweight", "Genetic history"],
+    "common_age_onset": "4-12 months (puppies) or 5+ years (arthritis)",
+    "symptoms": [
+      {
+        "symptom_key": "limping",
+        "symptom_name": "Limping/Lameness",
+        "severity_mild": "Intermittent stiffness or mild lameness, especially after rest or heavy exercise.",
+        "severity_severe": "Consistent, pronounced lameness; refusal to bear weight on the hind leg(s).",
+        "trigger_follow_up": "Is the limping occasional, or is your dog refusing to put any weight on the leg?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "gait_change",
+        "symptom_name": "Gait Change/Difficulty Rising",
+        "severity_mild": "Subtle 'bunny-hopping' gait when running; minor slowness when rising.",
+        "severity_severe": "Extreme difficulty/inability to rise from a sitting or lying position; significant wobbling or swaying of the hind end.",
+        "trigger_follow_up": "Does your dog 'bunny hop' (use both back legs together) when running, or is it struggling significantly to stand up?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "exercise_tolerance",
+        "symptom_name": "Exercise Intolerance",
+        "severity_mild": "Gets tired slightly quicker than normal.",
+        "severity_severe": "Completely unwilling to walk, run, or play; crying/whining when forced to move.",
+        "trigger_follow_up": "Does your dog show pain (whining, crying) when moving, or is it just less enthusiastic?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** This is a painful, chronic condition. Diagnostic imaging (X-rays) and pain management are needed. Maintain a lean weight."
+  },
+  {
+    "disease_id": "C_FPV",
+    "disease_name": "Feline Panleukopenia (Feline Distemper)",
+    "species": "Cat",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Unvaccinated", "Kitten (< 1 year)", "Sick/Immune-compromised"],
+    "symptoms": [
+      {
+        "symptom_key": "lethargy",
+        "symptom_name": "Lethargy/Depression",
+        "severity_mild": "Mild fatigue or low activity.",
+        "severity_severe": "Profound weakness, inability to move or lift the head; stuporous/comatose.",
+        "trigger_follow_up": "Is your cat showing a high fever (above 104°F/40°C) along with this profound weakness?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "appetite_loss",
+        "symptom_name": "Anorexia (Loss of Appetite)",
+        "severity_mild": "Decreased interest in food/skipping a meal.",
+        "severity_severe": "Complete refusal of food and water for more than 24 hours, leading to severe dehydration.",
+        "trigger_follow_up": "Has your cat refused food and water for a full day?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "vomiting",
+        "symptom_name": "Vomiting",
+        "severity_mild": "Isolated vomiting episode.",
+        "severity_severe": "Frequent, bilious (yellow/green) vomiting, leading to rapid dehydration and electrolyte imbalance.",
+        "trigger_follow_up": "Is the vomiting relentless and is your cat showing signs of dehydration (sunken eyes, dry gums)?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "diarrhea",
+        "symptom_name": "Diarrhea",
+        "severity_mild": "Soft stool (Diarrhea is not always present with FPV).",
+        "severity_severe": "Severe, watery diarrhea, sometimes with blood, though not as consistently bloody as canine Parvovirus.",
+        "trigger_follow_up": "Is your cat exhibiting severe diarrhea and abdominal pain/discomfort?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "EMERGENCY: **Requires immediate, intensive veterinary care/hospitalization.** FPV has a high fatality rate, especially in kittens. Supportive care (IV fluids, antibiotics) is critical."
+  },
+  {
+    "disease_id": "C_PKD_PERS",
+    "disease_name": "Polycystic Kidney Disease (PKD)",
+    "species": "Cat",
+    "breeds_affected": ["Persian", "Himalayan", "British Shorthair"],
+    "risk_factors": ["Genetic history (Autosomal Dominant gene)"],
+    "common_age_onset": "Clinical signs typically around 7 years old, though cysts are present from birth.",
+    "symptoms": [
+      {
+        "symptom_key": "thirst_urination",
+        "symptom_name": "Increased Thirst (Polydipsia) & Urination (Polyuria)",
+        "severity_mild": "Slight increase in water consumption or litter box use.",
+        "severity_severe": "Drinking huge amounts of water; urinating outside the box due to volume/frequency; diluted/clear urine.",
+        "trigger_follow_up": "Has there been a noticeable and sustained increase in how often your cat drinks and urinates?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "weight_appetite",
+        "symptom_name": "Weight Loss & Decreased Appetite",
+        "severity_mild": "Minor weight loss over several months.",
+        "severity_severe": "Rapid, unexplained weight loss accompanied by persistent vomiting/nausea.",
+        "trigger_follow_up": "Is the weight loss rapid or has your cat been vomiting frequently and consistently over several days?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "lethargy",
+        "symptom_name": "Lethargy/Malaise",
+        "severity_mild": "Less playful, more sleeping.",
+        "severity_severe": "Profound weakness, muscle wasting, or seizures (late stage symptom of kidney failure).",
+        "trigger_follow_up": "Is your cat's weakness severe, or has it had any seizures?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** PKD is progressive and requires management via diet, fluid therapy, and medication. Urgent care is needed if severe kidney failure symptoms (seizures, profound weakness) are present."
+  },
+  {
+    "disease_id": "D_CDV",
+    "disease_name": "Canine Distemper Virus (CDV)",
+    "species": "Dog",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Unvaccinated", "Puppy (< 6 months)"],
+    "symptoms": [
+      {
+        "symptom_key": "respiratory_discharge",
+        "symptom_name": "Nasal & Ocular Discharge",
+        "severity_mild": "Transient, clear (serous) nasal/eye discharge; mild cough.",
+        "severity_severe": "Thick, yellow/green **mucopurulent** discharge; difficulty breathing (pneumonia); persistent, wet cough.",
+        "trigger_follow_up": "Is the discharge thick and yellow/green, or is your dog struggling to breathe?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "neurological_signs",
+        "symptom_name": "Neurological Complications",
+        "severity_mild": "Mild lethargy, head tremors (often unnoticeable).",
+        "severity_severe": "**Involuntary muscle twitching (myoclonus); focal or generalized seizures ('chewing-gum fits');** circling, head tilt, or paralysis.",
+        "trigger_follow_up": "Has your dog had any uncontrolled muscle twitching or seizures?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "skin_signs",
+        "symptom_name": "Skin/Footpad Changes",
+        "severity_mild": "Mild reddening of the skin.",
+        "severity_severe": "**Hyperkeratosis (thickening and hardening of the nose and footpads);** pustular skin rash.",
+        "trigger_follow_up": "Are the dog's footpads or nose noticeably hard, cracked, or excessively thick?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "EMERGENCY: **Requires immediate veterinary attention.** CDV can rapidly progress to severe, irreversible neurological damage. Treatment is supportive and intensive."
+  },
+  {
+    "disease_id": "D_LEPTO",
+    "disease_name": "Leptospirosis",
+    "species": "Dog",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Drinking standing water", "Exposure to wildlife/rodents", "Unvaccinated"],
+    "symptoms": [
+      {
+        "symptom_key": "thirst_urination",
+        "symptom_name": "Increased Thirst (Polydipsia) & Urination (Polyuria)",
+        "severity_mild": "Slight increase in drinking water; mild fever/shaking.",
+        "severity_severe": "Excessive, rapid increase in drinking/urinating OR **complete inability to pass urine (anuria)**; profuse vomiting/diarrhea.",
+        "trigger_follow_up": "Is your dog suddenly drinking and urinating much more than normal, or, conversely, has it stopped urinating completely?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "organ_damage",
+        "symptom_name": "Signs of Organ Failure (Liver/Kidney)",
+        "severity_mild": "Lethargy, loss of appetite, mild abdominal pain.",
+        "severity_severe": "**Jaundice (yellow gums/eyes/skin); severe abdominal pain; high fever (over 103°F/39.4°C);** muscle stiffness.",
+        "trigger_follow_up": "Are your dog's gums or the whites of its eyes visibly yellow (jaundice)?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "bleeding",
+        "symptom_name": "Bleeding Disorders",
+        "severity_mild": "None.",
+        "severity_severe": "**Blood-tinged vomit, urine, or saliva; nosebleeds;** pinpoint red spots on gums (petechiae).",
+        "trigger_follow_up": "Is there any unexplained bleeding, such as a nosebleed or blood in the vomit/urine?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "EMERGENCY: **Requires immediate veterinary care.** Leptospirosis is life-threatening (kidney/liver failure) and is **Zoonotic** (transmissible to humans). Isolation and aggressive treatment with IV fluids and antibiotics are critical."
+  },
+  {
+    "disease_id": "D_C_GASTRO",
+    "disease_name": "Acute Gastroenteritis (Non-Specific)",
+    "species": "Dog, Cat",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Dietary indiscretion", "Stress", "Sudden diet change"],
+    "symptoms": [
+      {
+        "symptom_key": "vomiting",
+        "symptom_name": "Vomiting",
+        "severity_mild": "One or two episodes over 24 hours; pet remains bright and energetic.",
+        "severity_severe": "**Frequent (more than 4 times in 6 hours); containing foreign material (potential blockage);** inability to hold down water.",
+        "trigger_follow_up": "Is the vomiting constant, or has the pet refused to drink/hold down water for over 12 hours?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "diarrhea",
+        "symptom_name": "Diarrhea",
+        "severity_mild": "Loose or soft stool; mild mucus; small amounts of fresh blood (non-alarming).",
+        "severity_severe": "**Hemorrhagic (large amounts of bright red blood); watery, profuse diarrhea (risk of rapid dehydration);** fever, or pain on palpation.",
+        "trigger_follow_up": "Is the stool mostly liquid/water, or is there a large amount of visible blood?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "lethargy",
+        "symptom_name": "Lethargy/Appetite Loss",
+        "severity_mild": "Slightly reduced energy, skipped one meal.",
+        "severity_severe": "Refusing all food and water for over 24 hours; profound weakness; hiding (cats).",
+        "trigger_follow_up": "Has the pet not eaten anything for a full day, or is it too weak to get up?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "MILD/MODERATE: **Bland diet and observation for 24 hours.** If symptoms worsen, become hemorrhagic, or persist beyond 48 hours, seek veterinary care."
+  },
+  {
+    "disease_id": "C_FCV",
+    "disease_name": "Feline Calicivirus (FCV)",
+    "species": "Cat",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Unvaccinated", "Shelter/Multi-cat environment", "Kittens"],
+    "symptoms": [
+      {
+        "symptom_key": "oral_ulcers",
+        "symptom_name": "Oral/Tongue Ulcers & Salivation",
+        "severity_mild": "Small, few ulcers on tongue/palate; mild drooling (ptyalism).",
+        "severity_severe": "**Extensive, painful ulcers** preventing eating/drinking; severe gingivostomatitis; rapid weight loss.",
+        "trigger_follow_up": "Are the sores in the mouth severe enough that the cat is refusing to eat or drink anything?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "limping",
+        "symptom_name": "Lameness ('Limping Syndrome')",
+        "severity_mild": "Shifting lameness in one or more limbs that resolves quickly.",
+        "severity_severe": "Pronounced lameness, joint swelling, and pain preventing all movement.",
+        "trigger_follow_up": "Is the lameness constant and severe, or does it shift between different legs and improve over a few days?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "respiratory_signs",
+        "symptom_name": "Upper Respiratory Signs",
+        "severity_mild": "Mild sneezing, clear nasal discharge.",
+        "severity_severe": "Difficulty breathing (**pneumonia**); rapid, shallow breathing; blue/purple gums (cyanosis).",
+        "trigger_follow_up": "Is your cat exhibiting labored, open-mouth breathing or extreme weakness?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** Supportive care is needed, especially if the cat stops eating due to painful mouth sores. If respiratory distress is noted, proceed to a vet immediately."
+  },
+  {
+    "disease_id": "C_FHV1",
+    "disease_name": "Feline Herpes Virus (FHV-1)",
+    "species": "Cat",
+    "breeds_affected": ["All", "Persian", "Siamese"],
+    "risk_factors": ["Stress", "Unvaccinated", "Kittens/Immunosuppressed"],
+    "symptoms": [
+      {
+        "symptom_key": "respiratory_signs",
+        "symptom_name": "Upper Respiratory Signs",
+        "severity_mild": "Mild, intermittent sneezing; clear nasal/eye discharge.",
+        "severity_severe": "Severe, persistent sneezing fits; thick mucopurulent discharge blocking nasal passages; difficulty breathing.",
+        "trigger_follow_up": "Is your cat’s nose severely crusted or blocked, forcing them to breathe through their mouth?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "ocular_signs",
+        "symptom_name": "Eye Complications (Conjunctivitis/Keratitis)",
+        "severity_mild": "Mild redness of the whites of the eyes (conjunctivitis); slight squinting.",
+        "severity_severe": "Profound swelling around the eyes (kittens); corneal ulcers; blindness; adhesions of the eyelids/eyeball (symblepharon).",
+        "trigger_follow_up": "Is your cat squinting severely, or are its eyes noticeably stuck shut with discharge?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "general_malaise",
+        "symptom_name": "General Malaise",
+        "severity_mild": "Mild fever, transient lethargy.",
+        "severity_severe": "Severe weight loss; persistent anorexia (refusal to eat); profound depression, especially in kittens/seniors.",
+        "trigger_follow_up": "Has your cat refused to eat for more than 24 hours, or is it showing severe weight loss?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** Treatment is supportive (antivirals, nebulization) and aimed at preventing secondary bacterial infections. Immediate care if breathing difficulty or severe eye pain is noted."
+  },
+  {
+    "disease_id": "D_C_RINGWORM",
+    "disease_name": "Ringworm (Dermatophytosis)",
+    "species": "Dog, Cat",
+    "breeds_affected": ["All"],
+    "risk_factors": ["Kittens/Puppies", "Immunosuppression", "Contact with infected animals"],
+    "symptoms": [
+      {
+        "symptom_key": "skin_lesions",
+        "symptom_name": "Skin Lesions/Hair Loss",
+        "severity_mild": "Small, circular patches of hair loss; mild dandruff/flaking in the patch.",
+        "severity_severe": "Widespread hair loss; thick, crusty lesions (kerions); severe redness and scratching leading to secondary bacterial infection.",
+        "trigger_follow_up": "Are there multiple large, circular areas of hair loss, or is the skin very inflamed and crusted?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "itching",
+        "symptom_name": "Itching (Pruritus)",
+        "severity_mild": "Occasional scratching or grooming of the area.",
+        "severity_severe": "Excessive, constant scratching or chewing leading to open sores and bleeding.",
+        "trigger_follow_up": "Is the scratching so intense that it is causing bleeding or open wounds?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** Ringworm is highly contagious to other pets and humans (Zoonotic). Requires oral and/or topical antifungal treatment and environmental decontamination. Not life-threatening, but requires prompt action."
+  },
+  {
+    "disease_id": "D_ED_COM",
+    "disease_name": "Elbow Dysplasia (ED)",
+    "species": "Dog",
+    "breeds_affected": ["Golden Retriever", "Labrador", "Rottweiler", "German Shepherd"],
+    "risk_factors": ["Rapid growth rate", "Genetics", "Obesity"],
+    "common_age_onset": "4-12 months (puppy/adolescent)",
+    "symptoms": [
+      {
+        "symptom_key": "limping_foreleg",
+        "symptom_name": "Foreleg Limping/Lameness",
+        "severity_mild": "Intermittent forelimb lameness, often stiffness after rest or heavy exercise.",
+        "severity_severe": "Consistent, pronounced lameness that worsens over time; refusal to put weight on the limb; elbow joint visibly swollen or painful when touched.",
+        "trigger_follow_up": "Does the lameness primarily affect the front legs, and is it worse after the dog has been resting?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "gait_change",
+        "symptom_name": "Gait Change/Posture",
+        "severity_mild": "Carrying the elbow slightly outwards (abducted) while standing; walking with a short, choppy gait in the front.",
+        "severity_severe": "Profound reluctance to move; severe stiffness; inability to extend the elbow fully.",
+        "trigger_follow_up": "Does your dog seem unwilling to straighten its front leg completely?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** Requires diagnostic imaging (X-rays) and likely surgical or long-term medical management. Manage weight strictly."
+  },
+  {
+    "disease_id": "D_SAS_ROTT",
+    "disease_name": "Subaortic Stenosis (SAS)",
+    "species": "Dog",
+    "breeds_affected": ["Rottweiler", "Golden Retriever", "German Shepherd"],
+    "risk_factors": ["Genetics"],
+    "common_age_onset": "6 months - 3 years (congenital, signs show later)",
+    "symptoms": [
+      {
+        "symptom_key": "exercise_intolerance",
+        "symptom_name": "Exercise Intolerance",
+        "severity_mild": "Slightly increased panting after exercise; mild lethargy; heart murmur (detected by vet).",
+        "severity_severe": "**Fainting/Collapse** during or immediately after exercise (Syncope); persistent, hard cough; difficulty breathing (fluid in lungs).",
+        "trigger_follow_up": "Has your dog ever fainted, collapsed, or coughed constantly for no apparent reason?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "lethargy",
+        "symptom_name": "Lethargy/Weakness",
+        "severity_mild": "Seems less energetic than before.",
+        "severity_severe": "Profound weakness; inability to rise; sudden death.",
+        "trigger_follow_up": "Is your dog breathing rapidly while resting (more than 30 breaths per minute)?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "NON-EMERGENCY (IF MILD): **Schedule a veterinary cardiology workup.** Requires medication and activity restriction. If **collapse or severe breathing difficulty** occurs, treat as an **EMERGENCY**."
+  },
+  {
+    "disease_id": "D_DEMO_BK",
+    "disease_name": "Demodicosis (Demodectic Mange)",
+    "species": "Dog",
+    "breeds_affected": ["Bully Kutta", "Bulldog", "Pitbull breeds"],
+    "risk_factors": ["Genetics", "Weakened immune system", "Puppies"],
+    "symptoms": [
+      {
+        "symptom_key": "skin_lesions",
+        "symptom_name": "Skin Lesions/Hair Loss",
+        "severity_mild": "Small, well-defined areas of hair loss (alopecia), especially around the eyes and mouth. Skin is mildly scaly.",
+        "severity_severe": "**Generalized Demodicosis:** Large, infected patches of hair loss covering the body; skin is thick, crusty, and may ooze pus; strong odor; lethargy/fever from secondary infection.",
+        "trigger_follow_up": "Is the hair loss limited to the face and front legs, or is it widespread across the body?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "itching",
+        "symptom_name": "Itching (Pruritus)",
+        "severity_mild": "Minimal to none (often a non-itchy condition).",
+        "severity_severe": "Intense itching due to secondary bacterial infection (Pyoderma), leading to raw skin and bleeding.",
+        "trigger_follow_up": "Is the affected skin hot, severely reddened, and oozing pus?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary consultation.** Requires skin scrapes for diagnosis and long-term oral/topical treatment. Secondary infection may require antibiotics."
+  },
+  {
+    "disease_id": "C_HCM_COM",
+    "disease_name": "Hypertrophic Cardiomyopathy (HCM)",
+    "species": "Cat",
+    "breeds_affected": ["Ragdoll", "Siamese", "Bengal", "Maine Coon"],
+    "risk_factors": ["Genetics", "Age (older cats)"],
+    "symptoms": [
+      {
+        "symptom_key": "breathing_difficulty",
+        "symptom_name": "Respiratory Distress",
+        "severity_mild": "Often none (asymptomatic); mild lethargy or tiring easily.",
+        "severity_severe": "Sudden, **severe difficulty breathing (dyspnea); open-mouth breathing/panting**; fast, shallow breathing while resting (more than 40 breaths per minute).",
+        "trigger_follow_up": "Is your cat panting like a dog, or struggling to take a breath while resting?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "paralysis",
+        "symptom_name": "Hind Limb Paralysis (ATE)",
+        "severity_mild": "None.",
+        "severity_severe": "**Sudden paralysis of the hind legs; severe, intense pain (crying/howling); cold back paws** (due to a blood clot/Aortic Thromboembolism).",
+        "trigger_follow_up": "Did your cat suddenly lose the use of its back legs, and are the paws cold to the touch?",
+        "immediate_vet_flag_severe": true
+      },
+      {
+        "symptom_key": "general_malaise",
+        "symptom_name": "General Malaise/Appetite",
+        "severity_mild": "Slightly reduced activity.",
+        "severity_severe": "Collapse, fainting, or sudden death.",
+        "trigger_follow_up": "Has your cat collapsed or fainted recently?",
+        "immediate_vet_flag_severe": true
+      }
+    ],
+    "action_required": "EMERGENCY: **Requires immediate veterinary care.** Respiratory distress or hind limb paralysis (ATE) are life-threatening emergencies. Cats with known HCM need regular monitoring and medication."
+  },
+  {
+    "disease_id": "C_PRA_BEN",
+    "disease_name": "Progressive Retinal Atrophy (PRA)",
+    "species": "Cat",
+    "breeds_affected": ["Bengal", "Abyssinian"],
+    "risk_factors": ["Genetics (Recessive gene)"],
+    "common_age_onset": "2-4 years (vision loss begins)",
+    "symptoms": [
+      {
+        "symptom_key": "night_blindness",
+        "symptom_name": "Night Blindness",
+        "severity_mild": "Hesitation in low light; less willingness to move in the dark.",
+        "severity_severe": "Complete inability to see in low light; bumping into objects only in dim light.",
+        "trigger_follow_up": "Does your cat become nervous or bump into things only when the lights are low or out?",
+        "immediate_vet_flag_severe": false
+      },
+      {
+        "symptom_key": "day_blindness",
+        "symptom_name": "Day Blindness/Vision Loss",
+        "severity_mild": "Dilated pupils that react slowly to light.",
+        "severity_severe": "Bumping into objects even in bright light; completely lost vision (often adapted well, but loss is complete).",
+        "trigger_follow_up": "Is your cat bumping into objects even when the room is well-lit (indicates advanced blindness)?",
+        "immediate_vet_flag_severe": false
+      }
+    ],
+    "action_required": "NON-EMERGENCY: **Schedule a veterinary ophthalmology check.** This condition is progressive and incurable but manageable. Requires bloodwork for genetic screening."
+  }
+]
