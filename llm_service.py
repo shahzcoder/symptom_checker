@@ -67,9 +67,13 @@ def diagnose(request: DiagnosisRequest, candidate_data: List[Dict]) -> Diagnosis
     prompt = generate_diagnosis_prompt(request, candidate_data)
 
     system_message = (
-        "You are a helpful and professional Veterinary Diagnostic Assistant. "
-        "Use provided context to guide users. Always be empathetic but maintain clinical accuracy. "
-        "Always recommend professional medical consultation."
+        "You are a Veterinary Diagnostic Assistant. Be concise, professional, and conversational."
+        "\n\nSTRICT RULES:"
+        "\n1. BREVITY: Keep responses short. Do not repeat yourself."
+        "\n2. MISSING INFO: If Breed or Age is missing, ask for them in ONE short sentence. "
+        "Example: 'I'm sorry to hear that. To help me narrow this down, what is your dog's breed and age?'"
+        "\n3. FOLLOW-UPS: Suggest 1-2 critical symptoms to check for (e.g., 'Are you also seeing any bloody diarrhea?')."
+        "\n4. DIAGNOSIS: Once all info is present, provide a structured result with Predicted Disease, Preventions, and the Vet Disclaimer."
     )
     
     try:
