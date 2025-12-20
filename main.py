@@ -1,50 +1,51 @@
 from fastapi import FastAPI, HTTPException
-from models import DiagnosisRequest, DiagnosisResponse, ChatFlowState
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List
+from models import DiagnosisRequest, DiagnosisResponse
 from diagnosis_logic import filter_data
 from llm_service import diagnose
-from typing import List, Dict
 
-app = FastAPI(title="Pet Symptom Checker API")
+app = FastAPI(title="Smart Paws: Conversational Vet AI")
 
-# --- Initial Flow Endpoint (Gets pet details and returns symptoms list) ---
-# NOTE: This is slightly simplified from a chat flow, focusing on data transfer.
-# The Flutter app should manage the step-by-step chat state and send ALL
-# gathered data in the final POST request below.
+# CORS Middleware: Essential for Flutter Web and Cross-Origin requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/data/symptoms/{species}")
 def get_symptom_list(species: str) -> List[str]:
-    """Provides the full list of available symptom keys for the selected species."""
-    # Logic to extract all unique symptom_keys from the JSON data for the species
-    symptoms = ["lethargy", "vomiting", "diarrhea", "limping", "thirst_urination", "skin_lesions"] 
-    return symptoms 
+    """Returns unique symptom keys for the UI to suggest based on species."""
+    # Common symptoms across the diseases we defined
+    dog_symptoms = ["lethargy", "vomiting", "diarrhea", "limping", "fever", "coughing", "thirst"]
+    cat_symptoms = ["lethargy", "vomiting", "diarrhea", "sneezing", "drooling", "eye discharge"]
+    
+    return dog_symptoms if species.lower() == "dog" else cat_symptoms
 
-# --- Final Diagnosis Endpoint (The core of the RAG system) ---
 @app.post("/diagnosis", response_model=DiagnosisResponse)
-def get_diagnosis(request: DiagnosisRequest):
+async def get_diagnosis(request: DiagnosisRequest):
     """
-    Receives all user data (Breed, Symptoms, Follow-up Answers) and returns
-    a diagnosis using the RAG model.
+    Main Endpoint:
+    1. Receives current chat state (Species, Breed, Age, Symptoms).
+    2. Filters the JSON database for relevant diseases.
+    3. Calls Groq to either ask follow-up questions or provide a final diagnosis.
     """
     if not request.reported_symptoms:
-        raise HTTPException(status_code=400, detail="Must provide at least one symptom.")
+        raise HTTPException(status_code=400, detail="Please describe your pet's symptoms.")
 
-    # 1. Filter the database based on initial input
+    # 1. Retrieve relevant diseases from JSON (even if breed is missing)
     candidate_data = filter_data(
         request.species, 
         request.breed, 
         request.reported_symptoms
     )
 
-    if not candidate_data:
-        return DiagnosisResponse(
-            diagnosis_found=False,
-            severity_level="LOW",
-            recommendation="Could not find a match for the combination of breed and symptoms provided in the system database. Please contact your vet for a professional opinion.",
-            llm_rationale="No candidate disease profiles matched the initial filtering criteria."
-        )
-
-    # 2. Pass filtered data and user input to the LLM service
-    final_diagnosis = diagnose(request, candidate_data)
-
-    # 3. Return the structured result
-    return final_diagnosis
+    # 2. Use LLM to manage the conversation flow (Asking info vs. Diagnosing)
+    try:
+        final_result = diagnose(request, candidate_data)
+        return final_result
+    except Exception as e:
+        print(f"Server Error: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error during diagnosis.")

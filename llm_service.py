@@ -3,19 +3,14 @@ import os
 from typing import List, Dict
 from models import DiagnosisRequest, DiagnosisResponse
 from fastapi import HTTPException
-
-# --- 1. Groq Client Setup ---
-# Load the API key from environment variables.
-# CRITICAL: Do NOT hardcode your key here. 
-# Make sure to set the GROQ_API_KEY environment variable.
 from groq import Groq, APIError
 
+# --- 1. Groq Client Setup ---
 try:
     # Groq client will automatically look for the GROQ_API_KEY environment variable
     client = Groq()
 except Exception as e:
     print(f"Error initializing Groq client. Ensure GROQ_API_KEY is set. Error: {e}")
-    # Initialize without key, but the API call will fail without the key/env var.
     client = None 
 
 # --- 2. Master Prompt Generation (RAG) ---
@@ -23,37 +18,41 @@ except Exception as e:
 def generate_diagnosis_prompt(request: DiagnosisRequest, candidate_data: List[Dict]) -> str:
     """Creates the RAG prompt for the LLM based on candidate data."""
     
-    # 1. Format the Candidate JSON data beautifully for the prompt
     json_subset_str = json.dumps(candidate_data, indent=2)
     
-    # 2. Format the user's symptoms and answers
-    symptom_context = "\n".join([
-        f"- Symptom: {s} | User's detail: {request.follow_up_answers.get(s, 'No further detail.')}"
-        for s in request.reported_symptoms
-    ])
+    # Format user symptoms and any existing follow-up answers for context
+    symptom_context = ", ".join(request.reported_symptoms)
+    follow_up_context = "\n".join([f"- {k}: {v}" for k, v in request.follow_up_answers.items()])
 
-    # 3. Master Prompt Template (Refined for Groq's System Message)
+    # master prompt updated to include the conversational flow and mild/severe logic
     MASTER_PROMPT = f"""
-    **INSTRUCTIONS:**
-    1. Determine Severity: For each reported symptom, match the severity to 'severity_mild' or 'severity_severe' based on the 'User's detail'.
-    2. Final Action: If ANY matched symptom is determined to be 'severity_severe' AND 'immediate_vet_flag_severe' is true, the final recommendation MUST be 'CRITICAL / IMMEDIATE VET'.
-    3. Output: Provide the diagnosis in a structured, readable format, including the Probable Condition, Severity Level, and Recommendation.
-
-    ---
     **INPUT DATA:**
     A. Pet Profile:
     Species: {request.species}
-    Breed: {request.breed}
-    Age: {request.age or 'N/A'}
+    Breed: {request.breed if request.breed else 'NOT PROVIDED'}
+    Age: {request.age if request.age else 'NOT PROVIDED'}
     
-    B. Reported Symptoms and Context:
+    B. User Reported Symptoms:
     {symptom_context}
+
+    C. Existing Follow-up Answers:
+    {follow_up_context if follow_up_context else 'None'}
     
-    C. Structured Disease Database (JSON Subset):
+    D. Structured Disease Database (JSON Subset):
     {json_subset_str}
     ---
     
-    **ANALYSIS AND DIAGNOSIS:**
+    **TASK:**
+    You are a Veterinary Diagnostic Assistant. Analyze the input above using the following rules:
+
+    1. MISSING INFO: If Breed or Age is 'NOT PROVIDED', your response MUST politely ask for that information before giving a diagnosis.
+    2. SYMPTOM MATCHING: 
+       - Compare the User's symptoms against 'mild_symptoms' and 'severe_symptoms' in the database.
+       - If only mild symptoms are present, ASK 1-2 follow-up questions from the 'severe_symptoms' list of the suspected disease (e.g., "Are you seeing any bloating or bloody diarrhea?").
+    3. FINAL DIAGNOSIS: If Breed, Age, and enough symptoms are known, provide:
+       - Possible Predicted Disease: [Name from JSON]
+       - Preventions: [Specific preventions from JSON]
+       - Mandatory Closing: "Please consult a vet for better diagnosis and timely treatment."
     """
     return MASTER_PROMPT
 
@@ -67,12 +66,10 @@ def diagnose(request: DiagnosisRequest, candidate_data: List[Dict]) -> Diagnosis
         
     prompt = generate_diagnosis_prompt(request, candidate_data)
 
-    # Define a System Role to enforce structured, clinical output.
     system_message = (
-        "You are a highly specialized Veterinary Symptom Analyzer AI. "
-        "Your function is to process the structured JSON data provided and generate a diagnosis summary. "
-        "STRICTLY ADHERE to the clinical facts, 'severity_mild'/'severity_severe' descriptions, and 'immediate_vet_flag_severe' within the provided JSON data. "
-        "Do not guess or introduce diseases not listed in the database. Output a clear, direct analysis."
+        "You are a helpful and professional Veterinary Diagnostic Assistant. "
+        "Use provided context to guide users. Always be empathetic but maintain clinical accuracy. "
+        "Always recommend professional medical consultation."
     )
     
     try:
@@ -81,52 +78,42 @@ def diagnose(request: DiagnosisRequest, candidate_data: List[Dict]) -> Diagnosis
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": prompt}
             ],
-            # You can choose a different model if desired, but Llama-3.3-70b is powerful for reasoning.
             model="llama-3.3-70b-versatile",
-            temperature=0.1 # Lower temperature for less creativity, more deterministic reasoning
+            temperature=0.1 # Low temperature for factual consistency
         )
         
-        # The LLM's response contains the full diagnosis summary and rationale
         response_text = chat_completion.choices[0].message.content
         
-        # --- Post-Processing: Extract Key Fields from the LLM's Text Response ---
-        # NOTE: Groq does not currently support JSON output directly for this model,
-        # so you need to rely on the prompt to force a structured text output,
-        # then parse it back into a structured Python object.
+        # Check if the AI provided a final diagnosis or just follow-up questions
+        is_final = "Predicted Disease" in response_text or "Preventions" in response_text
         
-        # For simplicity and robustness, we will extract key phrases from the text response.
-        
-        # You would implement more robust text parsing (e.g., regex) here.
-        # For this example, we'll look for keywords.
-        
-        probable_condition = "Analysis Required"
-        severity = "MODERATE"
-        recommendation = "Review LLM output for details."
-        
-        if "CRITICAL" in response_text.upper() or "EMERGENCY" in response_text.upper():
-            severity = "CRITICAL"
-            recommendation = "EMERGENCY: Seek immediate veterinary care! " + response_text.split("Action:")[-1].strip()
+        # Determine Severity based on keywords in the LLM's logic
+        severity = "UNKNOWN"
+        if "SEVERE" in response_text.upper() or "EMERGENCY" in response_text.upper():
+            severity = "SEVERE"
         elif "MILD" in response_text.upper() or "MODERATE" in response_text.upper():
             severity = "MILD/MODERATE"
-            recommendation = response_text.split("Action:")[-1].strip()
-        
-        # Simple extraction of the first mentioned probable condition (if possible)
-        try:
-            probable_condition = response_text.split("Probable Condition(s):")[-1].split("\n")[0].strip()
-        except IndexError:
-            pass # Fallback to default
+
+        # Extract probable condition name if present
+        probable_condition = "Awaiting Information"
+        if is_final:
+            try:
+                # Simple split to find the condition name
+                probable_condition = response_text.split("Predicted Disease:")[-1].split("\n")[0].strip()
+            except:
+                probable_condition = "Analysis Provided"
 
         return DiagnosisResponse(
-            diagnosis_found=True,
+            diagnosis_found=is_final,
             probable_condition=probable_condition,
             severity_level=severity,
-            recommendation=recommendation,
+            recommendation=response_text,
             llm_rationale=response_text
         )
 
     except APIError as e:
         print(f"Groq API Error: {e}")
-        raise APIError(f"Failed to connect to Groq API or an API error occurred: {e}")
+        raise APIError(f"Failed to connect to Groq API: {e}")
     except Exception as e:
-        print(f"General Error during diagnosis: {e}")
-        raise HTTPException(status_code=500, detail=f"Internal server error during LLM processing: {e}")
+        print(f"General Error: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
