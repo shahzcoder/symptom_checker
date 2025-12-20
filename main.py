@@ -7,10 +7,12 @@ from llm_service import diagnose
 
 app = FastAPI(title="Smart Paws: Conversational Vet AI")
 
-# CORS Middleware: Essential for Flutter Web and Cross-Origin requests
+# --- FIX 1: Add CORS Middleware ---
+# This prevents the "Connection failed" error in Flutter Web/FlutterFlow
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"], # Allows your FlutterFlow app to access the API
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

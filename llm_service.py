@@ -67,13 +67,10 @@ def diagnose(request: DiagnosisRequest, candidate_data: List[Dict]) -> Diagnosis
     prompt = generate_diagnosis_prompt(request, candidate_data)
 
     system_message = (
-        "You are a Veterinary Diagnostic Assistant. Be concise, professional, and conversational."
-        "\n\nSTRICT RULES:"
-        "\n1. BREVITY: Keep responses short. Do not repeat yourself."
-        "\n2. MISSING INFO: If Breed or Age is missing, ask for them in ONE short sentence. "
-        "Example: 'I'm sorry to hear that. To help me narrow this down, what is your dog's breed and age?'"
-        "\n3. FOLLOW-UPS: Suggest 1-2 critical symptoms to check for (e.g., 'Are you also seeing any bloody diarrhea?')."
-        "\n4. DIAGNOSIS: Once all info is present, provide a structured result with Predicted Disease, Preventions, and the Vet Disclaimer."
+        "You are a Veterinary Assistant. Be extremely concise. "
+        "If info is missing, ask for it in one short sentence. "
+        "If diagnosing, provide: 'Predicted Disease', 'Preventions', and 'Vet Disclaimer'. "
+        "Keep the 'recommendation' field friendly for owners and 'llm_rationale' technical for records."
     )
     
     try:
@@ -109,10 +106,10 @@ def diagnose(request: DiagnosisRequest, candidate_data: List[Dict]) -> Diagnosis
 
         return DiagnosisResponse(
             diagnosis_found=is_final,
-            probable_condition=probable_condition,
-            severity_level=severity,
+            probable_condition="Awaiting Info" if not is_final else "Analysis Ready",
+            severity_level="SEVERE" if "severe" in response_text.lower() else "MILD",
             recommendation=response_text,
-            llm_rationale=response_text
+            llm_rationale=f"Logic: Analyzed {request.reported_symptoms} against {len(candidate_data)} diseases."
         )
 
     except APIError as e:
